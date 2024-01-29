@@ -1,4 +1,6 @@
 The Odin Project: TicTacToe 
 
 
-CSS ist übernommen aus YT
+CSS is from a Youtube Tutorial
+
+Problem: Restart button is not aligned with the Winning Message
