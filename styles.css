@@ -1,0 +1,197 @@
+*,*::after, *::before {
+    box-sizing: border-box;
+
+}
+
+:root{
+    --cell-size: 100px;
+    --mark-size: calc(var(--cell-size)*.9);
+}
+
+body {
+    margin: 0;
+}
+
+.board {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(3, auto);
+}
+
+.cell{
+    width: var(--cell-size);
+    height: var(--cell-size);
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+/*Board-grid 3x3 */
+
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3){
+    border-top: none;
+}
+
+.cell:nth-child(3n +1){
+    border-left: none;
+}
+.cell:nth-child(3n +3){
+    border-right: none;
+}
+
+
+.cell:nth-child(9),
+.cell:nth-child(8),
+.cell:nth-child(7) {
+    border-bottom: none;
+}
+
+
+/*Dadurch ändert sich der Mauszeiger auf not allowed = Wenn Feld schon besetzt ist,
+dann wird verhindet, dass das selbe Feld nochmal mit einem X/O überschrieben wird 
+
+*/
+
+.cell.x,
+.cell.circle{
+
+    cursor: not-allowed;
+
+}
+
+/*Erstellen vom X*/
+
+.cell.x::before,
+.cell.x::after{
+
+    background-color: black;
+    
+}
+
+/* Hover von X auf Lightgray*/
+
+.board.x .cell:not(.x):not(.circle):hover::before,
+.board.x .cell:not(.x):not(.circle):hover::after,
+.board.circle .cell:not(.x):not(.circle):hover::before {
+
+    background-color: lightgray;
+
+}
+
+
+/*Balken wird erstellt*/
+
+.cell.x::before,
+.cell.x::after,
+.board.x .cell:not(.x):not(.circle):hover::before,
+.board.x .cell:not(.x):not(.circle):hover::after {
+    content: "";
+    position: absolute;
+    width: calc(var(--mark-size) * 0.15);
+    height: var(--mark-size);
+    
+
+}
+
+/*Zwei Balken werden rotiert um ein X darzustellen*/
+
+.cell.x::before,
+.board.x .cell:hover::before{
+    transform:rotate(45deg);
+}
+
+.cell.x::after,
+.board.x .cell:hover::after{
+    transform: rotate(-45deg);
+}
+
+/* Circle wird auf Schwarz gesetzt*/
+.cell.circle::before{
+    background-color: black;
+}
+
+
+/* durch content: ""; wird Inahlt in den HTML Code erstellt, denn ::before und ::after Pseudo Elemente
+können nur auf Elemente zugreifen, bei dem tatsächlich auchh ein Inhalt existiert. (Es wird nichts angzeigt, wenn kein content vorhanden ist*/
+
+.cell.circle::before,
+.cell.circle::after,
+.board.circle .cell:not(.x):not(.circle):hover::before,
+.board.circle .cell:not(.x):not(.circle):hover::after
+{
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+
+}
+
+/*äußerer Kreis Schwarz*/
+.cell.circle::before,
+.board.circle .cell:not(.x):not(.circle):hover::before{
+
+
+    width: var(--mark-size) ;
+    height: var(--mark-size);
+
+
+
+}
+
+/*innerer Kreis Weiß*/
+
+.cell.circle::after,
+.board.circle .cell:not(.x):not(.circle):hover::after{
+
+    width: calc(var(--mark-size)* .7) ;
+    height: calc(var(--mark-size)* .7) ;
+    background-color: white;
+}
+
+
+
+
+/*WinningMessage */
+
+.winningMessage{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgb(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    color:white;
+    flex-direction: column;
+}
+
+.winningMessage.show {
+    display: flex;
+
+}
+
+#RestartBtn {     
+    display: none;     
+    position: none;      
+    margin-top: 20px;  
+}
+
+
+
+
+
+
+
+
+
