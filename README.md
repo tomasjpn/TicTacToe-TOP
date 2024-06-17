@@ -1,4 +1,8 @@
-The Odin Project: TicTacToe 
+#The Odin Project: TicTacToe 
+
+
+
+Live preview: https://tomasjpn.github.io/TicTacToe-TOP/
 
 
 CSS is from a Youtube Tutorial
